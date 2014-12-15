@@ -36,18 +36,18 @@ create table location(
 	end_date datetime
 );
 
-create table eventrole(
-	id integer primary key autoincrement,
-	event integer,
-	role integer,
-	person integer,
-	admin integer,
-	foreign key(event) references event(id),
-	foreign key(role) references role(id),
-	foreign key(person) references person(id),
-	foreign key(admin) references person(id),
-	primary key (event, role, person)
-);
+-- create table eventrole(
+-- 	id integer primary key autoincrement,
+-- 	event integer,
+-- 	role integer,
+-- 	person integer,
+-- 	admin integer,
+-- 	foreign key(event) references event(id),
+-- 	foreign key(role) references role(id),
+-- 	foreign key(person) references person(id),
+-- 	foreign key(admin) references person(id),
+-- 	primary key (event, role, person)
+-- );
 
 create table personrole(
 	eventrole integer,
