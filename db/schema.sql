@@ -1,7 +1,8 @@
 create table person(
 	id integer primary key autoincrement,
 	first text,
-	last text
+	last text,
+	email text
 );
 
 create table cando(
