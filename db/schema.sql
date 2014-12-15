@@ -1,56 +1,48 @@
-create table university(
+create table person(
 	id integer primary key autoincrement,
-	name text
+	first text,
+	last text,
 );
 
-create table course(
+create table cando(
+	role integer primary key,
+	person integer primary key,
+	foreign key(role) references role(id),
+	foreign key(person) references person(id)
+);
+
+create table role(
 	id integer primary key autoincrement,
-	crn integer,
+	title text,
+	description text
+);
+
+create table event(
+	id integer primary key autoincrement,
 	name text,
-	subject text,
-	course_number integer,
-	university integer,
-	term integer,
-	foreign key(university) references university(id)
+	start_date datetime,
+	end_date datetime
 );
 
-create table student(
+create table location(
 	id integer primary key autoincrement,
-	university integer,
 	name text,
-	email text,
-	foreign key(university) references university(id)
+	address text,
+	end_date datetime
 );
 
-create table instructor(
-	id integer primary key autoincrement,
-	university integer,
-	name text,
-	email text,
-	foreign key(university) references university(id)
+create table eventrole(
+	event integer primary key,
+	role integer primary key,
+	person integer primary key
+	foreign key(event) references event(id),
+	foreign key(role) references role(id),
+	foreign key(person) references person(id)
 );
 
-create table survey(
-	id integer primary key autoincrement,
-	university integer,
-	student integer,
-	instructor integer,
-	term, integer,
-	completed date,
-	question_01 integer,
-	question_02 integer,
-	question_03 integer,
-	question_04 integer,
-	question_05 integer,
-	question_06 integer,
-	question_07 integer,
-	question_08 integer,
-	question_09 integer,
-	question_10 integer,
-	question_11 integer,
-	question_12 integer,
-	question_13 integer,
-	foreign key(university) references university(id),
-	foreign key(student) references student(id),
-	foreign key(instructor) references instructor(id)
+create table admin(
+	person integer primary key,
+	location integer primary key,
+	foreign key(person) references person(id),
+	foreign key(location) references location(id)
 );
