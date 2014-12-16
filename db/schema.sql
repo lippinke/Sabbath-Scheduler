@@ -2,7 +2,8 @@ CREATE TABLE person(
 	id INTEGER PRIMARY KEY AUTO_INCREMENT,
 	first VARCHAR(255),
 	last VARCHAR(255),
-	email VARCHAR(320)
+	email VARCHAR(320),
+	password VARCHAR(255)
 );
 
 CREATE TABLE can_do(
@@ -57,10 +58,11 @@ CREATE TABLE person_role(
 );
 
 CREATE TABLE admin(
-	person INTEGER PRIMARY KEY,
+	person INTEGER,
 	congregation INTEGER,
 	FOREIGN KEY(person) REFERENCES person(id) ON DELETE CASCADE,
-	FOREIGN KEY(congregation) REFERENCES congregation(id) ON DELETE CASCADE
+	FOREIGN KEY(congregation) REFERENCES congregation(id) ON DELETE CASCADE,
+	PRIMARY KEY(person, congregation)
 );
 
 CREATE TABLE goes_to(
