@@ -1,12 +1,6 @@
 <?php
 	require_once 'config.php';
-
-    $db = new SQLite3($db_path);
-    if(!$db)
-    {
-        echo "error connecting to database\n";
-        exit(-1);
-    }
+	require_once 'db_connect.php';
 ?>
 
 <html>
