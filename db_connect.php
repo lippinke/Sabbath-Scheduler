@@ -1,9 +1,4 @@
 <?php
-	$dbhost = 'oniddb.cws.oregonstate.edu';
-	$dbname = 'bowiec-db';
-	$dbuser = 'bowiec-db';
-	$dbpass = 'ITU87CwmDVWcS9pf';
-
 	function db_connect()
 	{
 		$mysql_handle = mysql_connect($dbhost, $dbuser, $dbpass)
