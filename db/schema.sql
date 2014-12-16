@@ -1,85 +1,85 @@
-create table person(
-	id integer primary key autoincrement,
-	first varchar(255),
-	last varchar(255),
-	email varchar(320)
+CREATE TABLE person(
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	first VARCHAR(255),
+	last VARCHAR(255),
+	email VARCHAR(320)
 );
 
-create table can_do(
-	role integer,
-	person integer,
-	foreign key(role) references role(id),
-	foreign key(person) references person(id),
-	primary key (role, person)
+CREATE TABLE can_do(
+	role INTEGER,
+	person INTEGER,
+	FOREIGN KEY (role) REFERENCES role(id),
+	FOREIGN KEY (person) REFERENCES person(id),
+	PRIMARY KEY (role, person)
 
 );
 
-create table role(
-	id integer primary key autoincrement,
-	title varchar(255),
-	description varchar(500)
+CREATE TABLE role(
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	title VARCHAR(255),
+	description VARCHAR(500)
 );
 
-create table event(
-	id integer primary key autoincrement,
-	name varchar(255),
-	location integer,
-	start_date datetime,
-	end_date datetime,
-	foreign key(location) references location(id)
+CREATE TABLE event(
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	name VARCHAR(255),
+	location INTEGER,
+	start_date DATETIME,
+	end_date DATETIME,
+	FOREIGN KEY (location) REFERENCES location(id)
 );
 
-create table location(
-	id integer primary key autoincrement,
-	name varchar(255),
-	address varchar(255),
+CREATE TABLE location(
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	name VARCHAR(255),
+	address VARCHAR(255)
 );
 
-create table event_role(
-	id integer primary key autoincrement,
-	event integer,
-	role integer,
-	admin integer,
-	foreign key(event) references event(id),
-	foreign key(role) references role(id),
-	foreign key(admin) references person(id),
-	primary key (event, role, person)
+CREATE TABLE event_role(
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	event INTEGER,
+	role INTEGER,
+	admin INTEGER,
+	FOREIGN KEY (event) REFERENCES event(id),
+	FOREIGN KEY (role) REFERENCES role(id),
+	FOREIGN KEY (admin) REFERENCES person(id),
+	PRIMARY KEY (event, role, person)
 );
 
-create table person_role(
-	eventrole integer,
-	person integer,
-	foreign key(eventrole) references eventrole(id),
-	foreign key(person) references person(id),
-	primary key(eventrole, person)
+CREATE TABLE person_role(
+	eventrole INTEGER,
+	person INTEGER,
+	FOREIGN KEY (eventrole) REFERENCES eventrole(id),
+	FOREIGN KEY (person) REFERENCES person(id),
+	PRIMARY KEY (eventrole, person)
 );
 
-create table admin(
-	person integer primary key,
-	congregation integer,
-	foreign key(person) references person(id),
-	foreign key(congregation) references congregation(id)
+CREATE TABLE admin(
+	person INTEGER PRIMARY KEY,
+	congregation INTEGER,
+	FOREIGN KEY(person) REFERENCES person(id),
+	FOREIGN KEY(congregation) REFERENCES congregation(id)
 );
 
-create table goes_to(
-	person integer,
-	congregation integer,
-	foreign key(person) references person(id),
-	foreign key(congregation) references congregation(id),
-	primary key(person, congregation)
+CREATE TABLE goes_to(
+	person INTEGER,
+	congregation INTEGER,
+	FOREIGN KEY(person) REFERENCES person(id),
+	FOREIGN KEY(congregation) REFERENCES congregation(id),
+	PRIMARY KEY(person, congregation)
 );
 
-create table congregation(
-	id integer primary key,
-	location integer,
+CREATE TABLE congregation(
+	id INTEGER PRIMARY KEY,
+	location INTEGER,
 	start_date date,
 	end_date date,
-	foreign key(location) references location(id)
+	FOREIGN KEY(location) REFERENCES location(id)
 );
 
-create table template(
-	id integer,
-	role integer,
-	foreign key(role_id) references role(id),
-	primary key(id, role)
+CREATE TABLE template(
+	id INTEGER,
+	role INTEGER,
+	FOREIGN KEY(role_id) REFERENCES role(id),
+	PRIMARY KEY(id, role)
 );
