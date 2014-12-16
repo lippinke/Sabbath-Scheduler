@@ -23,16 +23,16 @@ function get_role_person($role_id, $db){
 
 //Returns an array of attributes 
 //corresponding to the given person_id
-function get_person($person_id, $db){
-	if (!is_int($person_id)){
-		return;
-	}
-	$data = mysqli_query($db,
-		"SELECT * FROM person
-		WHERE id = $person_id");
-	mysqli_free_result($data);
-	return result_to_json($data);
-}
+// function get_person($person_id, $db){
+// 	if (!is_int($person_id)){
+// 		return;
+// 	}
+// 	$data = mysqli_query($db,
+// 		"SELECT * FROM person
+// 		WHERE id = $person_id");
+// 	mysqli_free_result($data);
+// 	return result_to_json($data);
+// }
 
 //Returns the attributes of a given role 
 //based on a role_id
@@ -126,14 +126,7 @@ function check_free($person_id, $start, $end, $db){
 }
 
 //Check if a person is an admin
-function check_admin($person_id, $db){
-	if (!is_int($person_id)){
-		return;
-	}
-	$data = mysqli_query($db, "SELECT congregation FROM admin
-		WHERE person = $person_id");
-	return result_to_json($data);
-}
+
 
 //Create and event based on some info
 function add_event($db, $name, $loc_id, $start_date, $end_date)
@@ -169,16 +162,5 @@ function add_location($db, $name, $address)
 	return insert_row($db, "location", $data);
 }
 
-//Add a person
-function add_person($db, $first, $last, $email, $password)
-{
-	$data = array(
-	             "first"    => $first,
-	             "last"     => $last,
-	             "email"    => $email,
-	             "password" => $password
-	            );
 
-	return insert_row($db, "person", $data);
-}
 ?>
