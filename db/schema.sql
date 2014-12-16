@@ -74,6 +74,7 @@ CREATE TABLE goes_to(
 
 CREATE TABLE congregation(
 	id INTEGER PRIMARY KEY,
+	name VARCHAR(255),
 	location INTEGER,
 	start_date DATE,
 	end_date DATE,
