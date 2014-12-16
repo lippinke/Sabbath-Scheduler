@@ -16,7 +16,7 @@ function get_role_person($role_id, $db){
 		"SELECT * FROM person
 		WHERE id IN (
 			SELECT person FROM can_do
-			WHERE role == $role)"
+			WHERE role = $role)"
 	
 	return result_to_json($data);
 }
@@ -29,7 +29,7 @@ function get_person($person_id, $db){
 	}
 	$data = mysqli_query($db,
 		"SELECT * FROM person
-		WHERE id == $person_id");
+		WHERE id = $person_id");
 	mysqli_free_result($data);
 	return result_to_json($data);
 }
@@ -42,7 +42,7 @@ function get_role($role_id, $db){
 	}
 	$data = mysqli_query($db,
 		"SELECT * FROM role
-		WHERE id == $role_id");
+		WHERE id = $role_id");
 	return result_to_json($data);
 }
 
@@ -54,7 +54,7 @@ function get_event($event_id, $db){
 	}
 	$data = mysqli_query($db,
 		"SELECT * FROM event
-		WHERE id == $role_id");
+		WHERE id = $role_id");
 	return result_to_json($data);
 }
 
@@ -70,7 +70,7 @@ function get_template($template_id, $db){
 	$roles = array();
 	$data2 = mysqli_query($db, "SELECT * FROM role
 		WHERE id IN (SELECT role_id FROM template
-			WHERE template_id == $template_id");
+			WHERE template_id = $template_id");
 	return result_to_json($data2);
 }
 
@@ -82,7 +82,7 @@ function get_congregation($cong_id, $db){
 	}
 	$data = mysqli_query($db,
 		"SELECT * FROM congregation
-		WHERE id == $cong_id");
+		WHERE id = $cong_id");
 	return result_to_json($data);
 }
 
@@ -97,10 +97,10 @@ function check_free($person_id, $start, $end, $db){
 		WHERE id IN (
 			SELECT event FROM event_role
 			WHERE id IN (SELECT eventrole FROM person_role
-				WHERE person == $person_id");
+				WHERE person = $person_id");
 	$data3 = mysqli_query($db, "SELECT * FROM event_role
 		WHERE id IN (SELECT eventrole FROM person_role
-			WHERE person == $person_id");
+			WHERE person = $person_id");
 
 	$events = array();
 	$eventRoles = array();
@@ -130,8 +130,8 @@ function check_admin($person_id, $db){
 	if (!is_int($person_id)){
 		return;
 	}
-	$data = mysqli_query($db, "SELECT * FROM admin
-		WHERE person == $person_id");
+	$data = mysqli_query($db, "SELECT congregation FROM admin
+		WHERE person = $person_id");
 	return result_to_json($data);
 }
 
@@ -142,7 +142,12 @@ function add_event($name, $date, $time, $loc_id, $db){
 
 //Validate user logins
 function validate_login($email, $password, $db){
-
+	if (!is_int($person_id)){
+		return;
+	}
+	$data = mysqli_query($db, "SELECT id FROM person
+		WHERE email = \"$email\" AND password = \"$password\"");
+	return result_to_json($data);
 }
 
 //Add a location
