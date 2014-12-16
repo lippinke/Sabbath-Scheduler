@@ -42,8 +42,7 @@ CREATE TABLE event_role(
 	start DATETIME,
 	end DATETIME,
 	FOREIGN KEY (event) REFERENCES event(id) ON DELETE CASCADE,
-	FOREIGN KEY (role) REFERENCES role(id) ON DELETE CASCADE,
-	PRIMARY KEY (event, role, person)
+	FOREIGN KEY (role) REFERENCES role(id) ON DELETE CASCADE
 );
 
 CREATE TABLE person_role(
@@ -74,14 +73,20 @@ CREATE TABLE goes_to(
 CREATE TABLE congregation(
 	id INTEGER PRIMARY KEY,
 	location INTEGER,
-	start_date date,
-	end_date date,
+	start_date DATE,
+	end_date DATE,
 	FOREIGN KEY(location) REFERENCES location(id) ON DELETE SET NULL
 );
 
 CREATE TABLE template(
-	id INTEGER,
+	template_desc INTEGER,
 	role INTEGER,
-	FOREIGN KEY(role_id) REFERENCES role(id) ON DELETE CASCADE,
-	PRIMARY KEY(id, role)
+	FOREIGN KEY(role) REFERENCES role(id) ON DELETE CASCADE,
+	FOREIGN KEY(template_desc) REFERENCES template_desc(id) ON DELETE CASCADE,
+	PRIMARY KEY(template_desc, role)
+);
+
+CREATE TABLE template_desc(
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	name VARCHAR(255)
 );
