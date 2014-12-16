@@ -1,11 +1,13 @@
 <?php
+	require_once 'db_config.php';
+
 	function db_connect()
 	{
-		$mysql_handle = mysql_connect($dbhost, $dbuser, $dbpass)
-		    or die("Error connecting to database server");
+		global $dbhost, $dbuser, $dbpass, $dbname;
 
-		mysql_select_db($dbname, $mysql_handle)
-		    or die("Error selecting database: $dbname");	
+		$mysql_handle = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname)
+		    or die('Connect Error (' . mysqli_connect_errno() . ') '
+		    . mysqli_connect_error());	
 
 		return $mysql_handle;
 	}
