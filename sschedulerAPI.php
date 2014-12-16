@@ -127,7 +127,12 @@ function check_free($person_id, $start, $end, $db){
 
 //Check if a person is an admin
 function check_admin($person_id, $db){
-	
+	if (!is_int($person_id)){
+		return;
+	}
+	$data = mysqli_query($db, "SELECT * FROM admin
+		WHERE person == $person_id");
+	return result_to_json($data);
 }
 
 //Create and event based on some info
