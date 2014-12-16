@@ -1,4 +1,6 @@
 <?php
+	require_once 'functions.php';
+
 	function get_person($db, $person_id)
 	{
 		$query = "SELECT *
@@ -7,7 +9,7 @@
 
 		$result = mysqli_query($db, $query);
 
-		return result_to_json($result);
+		return '{"person":' . result_to_json($result) . '}';
 	}
 
 	function add_person($db, $first, $last, $email, $password)
