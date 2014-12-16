@@ -1,6 +1,9 @@
 <?php
 	// server side config
-	$db_path = 'db/data.sqlite3';
+	$dbhost = 'oniddb.cws.oregonstate.edu';
+	$dbname = 'bowiec-db';
+	$dbuser = 'bowiec-db';
+	$dbpass = 'ITU87CwmDVWcS9pf';
 
 	// client side config
 	$title = 'Sabbath Scheduler';
