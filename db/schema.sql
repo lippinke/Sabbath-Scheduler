@@ -8,8 +8,8 @@ CREATE TABLE person(
 CREATE TABLE can_do(
 	role INTEGER,
 	person INTEGER,
-	FOREIGN KEY (role) REFERENCES role(id),
-	FOREIGN KEY (person) REFERENCES person(id),
+	FOREIGN KEY (role) REFERENCES role(id) ON DELETE CASCADE,
+	FOREIGN KEY (person) REFERENCES person(id) ON DELETE CASCADE,
 	PRIMARY KEY (role, person)
 
 );
@@ -26,7 +26,7 @@ CREATE TABLE event(
 	location INTEGER,
 	start_date DATETIME,
 	end_date DATETIME,
-	FOREIGN KEY (location) REFERENCES location(id)
+	FOREIGN KEY (location) REFERENCES location(id) ON DELETE SET NULL
 );
 
 CREATE TABLE location(
@@ -39,33 +39,35 @@ CREATE TABLE event_role(
 	id INTEGER PRIMARY KEY AUTO_INCREMENT,
 	event INTEGER,
 	role INTEGER,
-	admin INTEGER,
-	FOREIGN KEY (event) REFERENCES event(id),
-	FOREIGN KEY (role) REFERENCES role(id),
-	FOREIGN KEY (admin) REFERENCES person(id),
+	start DATETIME,
+	end DATETIME,
+	FOREIGN KEY (event) REFERENCES event(id) ON DELETE CASCADE,
+	FOREIGN KEY (role) REFERENCES role(id) ON DELETE CASCADE,
 	PRIMARY KEY (event, role, person)
 );
 
 CREATE TABLE person_role(
 	eventrole INTEGER,
 	person INTEGER,
-	FOREIGN KEY (eventrole) REFERENCES eventrole(id),
-	FOREIGN KEY (person) REFERENCES person(id),
+	admin INTEGER,
+	FOREIGN KEY (eventrole) REFERENCES eventrole(id) ON DELETE CASCADE,
+	FOREIGN KEY (person) REFERENCES person(id) ON DELETE CASCADE,
+	FOREIGN KEY (admin) REFERENCES person(id) ON DELETE SET NULL,
 	PRIMARY KEY (eventrole, person)
 );
 
 CREATE TABLE admin(
 	person INTEGER PRIMARY KEY,
 	congregation INTEGER,
-	FOREIGN KEY(person) REFERENCES person(id),
-	FOREIGN KEY(congregation) REFERENCES congregation(id)
+	FOREIGN KEY(person) REFERENCES person(id) ON DELETE CASCADE,
+	FOREIGN KEY(congregation) REFERENCES congregation(id) ON DELETE CASCADE
 );
 
 CREATE TABLE goes_to(
 	person INTEGER,
 	congregation INTEGER,
-	FOREIGN KEY(person) REFERENCES person(id),
-	FOREIGN KEY(congregation) REFERENCES congregation(id),
+	FOREIGN KEY(person) REFERENCES person(id) ON DELETE CASCADE,
+	FOREIGN KEY(congregation) REFERENCES congregation(id) ON DELETE CASCADE,
 	PRIMARY KEY(person, congregation)
 );
 
@@ -74,12 +76,12 @@ CREATE TABLE congregation(
 	location INTEGER,
 	start_date date,
 	end_date date,
-	FOREIGN KEY(location) REFERENCES location(id)
+	FOREIGN KEY(location) REFERENCES location(id) ON DELETE SET NULL
 );
 
 CREATE TABLE template(
 	id INTEGER,
 	role INTEGER,
-	FOREIGN KEY(role_id) REFERENCES role(id),
+	FOREIGN KEY(role_id) REFERENCES role(id) ON DELETE CASCADE,
 	PRIMARY KEY(id, role)
 );
