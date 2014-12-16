@@ -17,11 +17,8 @@ function get_role_person($role_id, $db){
 		WHERE id IN (
 			SELECT person FROM can_do
 			WHERE role == $role)"
-	while ($row = mysqli_fetch_array($data)){
-		$people[] = $row["id"];
-	}
-	mysqli_free_result($data);
-	return $people;
+	
+	return result_to_json($data);
 }
 
 //Returns an array of attributes 
@@ -33,12 +30,8 @@ function get_person($person_id, $db){
 	$data = mysqli_query($db,
 		"SELECT * FROM person
 		WHERE id == $person_id");
-	$row = mysqli_fetch_array($data);
 	mysqli_free_result($data);
-	if ($row == FALSE){
-		return;
-	}
-	return $row["id"];
+	return result_to_json($data);
 }
 
 //Returns the attributes of a given role 
@@ -50,12 +43,7 @@ function get_role($role_id, $db){
 	$data = mysqli_query($db,
 		"SELECT * FROM role
 		WHERE id == $role_id");
-	$row = mysqli_fetch_array($data);
-	mysqli_free_result($data);
-	if ($row == FALSE){
-		return;
-	}
-	return $row;
+	return result_to_json($data);
 }
 
 //Returns attributes of a given event
@@ -67,12 +55,7 @@ function get_event($event_id, $db){
 	$data = mysqli_query($db,
 		"SELECT * FROM event
 		WHERE id == $role_id");
-	$row = mysqli_fetch_array($data);
-	mysqli_free_result($data);
-	if ($row == FALSE){
-		return;
-	}
-	return $row;
+	return result_to_json($data);
 }
 
 //Returns an array of roles
@@ -88,10 +71,7 @@ function get_template($template_id, $db){
 	$data2 = mysqli_query($db, "SELECT * FROM role
 		WHERE id IN (SELECT role_id FROM template
 			WHERE template_id == $template_id");
-	while ($row = mysqli_fetch_array($data2)){
-		$roles[] = $row[];
-	}
-	return $roles;
+	return result_to_json($data2);
 }
 
 //Returns info about the congregation 
@@ -103,12 +83,7 @@ function get_congregation($cong_id, $db){
 	$data = mysqli_query($db,
 		"SELECT * FROM congregation
 		WHERE id == $cong_id");
-	$row = mysqli_fetch_array($data);
-	mysqli_free_result($data);
-	if ($row == FALSE){
-		return;
-	}
-	return $row;
+	return result_to_json($data);
 }
 
 //Check if a person is free during a 
@@ -152,7 +127,7 @@ function check_free($person_id, $start, $end, $db){
 
 //Check if a person is an admin
 function check_admin($person_id, $db){
-
+	
 }
 
 //Create and event based on some info
