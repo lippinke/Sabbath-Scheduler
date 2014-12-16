@@ -136,8 +136,16 @@ function check_admin($person_id, $db){
 }
 
 //Create and event based on some info
-function add_event($name, $date, $time, $loc_id, $db){
+function add_event($db, $name, $loc_id, $start_date, $end_date)
+{
+	$data = array(
+	             "name"       => $name,
+	             "loc_id"     => $loc_id,
+	             "start_date" => $start_date,
+	             "end_date"   => $end_date
+	            );
 
+	return insert_row($db, "person", $data);
 }
 
 //Validate user logins
@@ -151,12 +159,26 @@ function validate_login($email, $password, $db){
 }
 
 //Add a location
-function add_loc($name, $address){
+function add_location($db, $name, $address)
+{
+	$data = array(
+	             "name"    => $name,
+	             "address" => $address
+	            );
 
+	return insert_row($db, "location", $data);
 }
 
 //Add a person
-function add_person($first_name, $last_name, $email, $password, $roles, $db){
+function add_person($db, $first, $last, $email, $password)
+{
+	$data = array(
+	             "first"    => $first,
+	             "last"     => $last,
+	             "email"    => $email,
+	             "password" => $password
+	            );
 
+	return insert_row($db, "person", $data);
 }
 ?>

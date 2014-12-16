@@ -1,4 +1,8 @@
 <?php
-	require_once 'db_connect.php';
-	require_once 'person_queries.php';
+	require_once '../php/db_connect.php';
+	require_once '../php/person_queries.php';
+
+	$db = db_connect();
+
+	echo get_person($db, 1);
 ?>
