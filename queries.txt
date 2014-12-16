@@ -1,0 +1,73 @@
+#Some tentative, templatey, potential queries
+#For the Sabbath-Scheduler project.
+
+
+#insert location
+
+INSERT INTO Location(Name, Address)
+VALUES ("$name", "$address");
+
+
+#insert people
+
+INSERT INTO Person(First_Name, Last_Name, email, password)
+VALUES ("$FirstName", "$LastName", "$email", "$password");
+
+
+#insert event
+
+INSERT INTO Event(Name, Date, Time, loc_id)
+VALUES ("$name", "$date", "$time", "$loc_id");
+
+loc_id is selected in the drop down. It is associated with the string value the user selects in the button.
+
+
+#view calendar
+
+SELECT * FROM Event
+WHERE <condition>;
+
+condition is determined at runtime. The filter might work by adding conditions end on end. For example, I might use:
+
+"WHERE loc_id == ($loc_from_DropDown) AND 
+event_id IN (SELECT event_id FROM Event_Role
+WHERE event_role_id IN (
+SELECT event_role_id FROM People_In_Role
+WHERE person_id == "$person_from_DropDown"))
+
+
+#View Event
+
+SELECT (First_Name, Last_Name, email) FROM Person
+WHERE person_id IN (SELECT person_id FROM People_In_Role WHERE event_role_id IN (SELECT event_role_id FROM Event_Role WHERE event_id == "$event_id"));
+
+#If the person is an admin of the location where an event takes place, he or she should be able to edit it as well.
+
+#To check if someone is an administrator for this event
+SELECT * FROM Admin
+WHERE person_id == "$user_id" AND 
+loc_id IN (SELECT loc_id FROM Event
+WHERE event_id == "$event_id");
+
+#Once we've determined they are, they can edit the event.
+SELECT * FROM Person
+WHERE person_id IN (SELECT person_id FROM People_In_Role
+WHERE event_role_id IN (SELECT event_role_id FROM Event_Role
+WHERE event_id == "$event_id"));
+
+UPDATE People_In_Role 
+SET person_id = "$newPerson"
+WHERE person_id == "$oldPerson" AND event_role_id IN (SELECT event_role_id FROM Event_Role
+WHERE event_id == "$event_id");
+
+
+#User Log in
+#The first one gets you the user ID for this user, and
+#The second one gets you any locations he or she is an 
+#administrator for.
+
+SELECT person_id FROM Person
+WHERE email == "$email" AND password == "$password";
+
+SELECT loc_id FROM Admin 
+WHERE person_id == "$person_id"
