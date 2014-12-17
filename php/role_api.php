@@ -11,7 +11,7 @@
 			"SELECT * FROM person
 			WHERE id IN (
 				SELECT person FROM can_do
-				WHERE role = $role)"
+				WHERE role = $role)");
 		
 		return result_to_json($data);
 	}

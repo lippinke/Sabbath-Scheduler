@@ -15,6 +15,30 @@
 		return result_to_json($data2);
 	}
 
+	// role_ids is an array
+	function add_template($db, $name, $role_ids)
+	{
+		if(!insert_row($db, "congregation", array("name" => $name))){
+			return FALSE;
+		}
+
+		// TODO: this...
+		// $template_id = 1;
+
+		foreach($role_ids as $role_id){
+			$row_data = array(
+			                  "role" => $role_id,
+			                  "template_desc" => $template_id
+			                 );
+
+			if(!insert_row($db, "template", $row_data)){
+				return FALSE;
+			}
+		}
+
+		return TRUE;
+	}
+
 	//Returns info about the congregation 
 	//based on the congregation id
 	function get_congregation($cong_id, $db){
@@ -25,6 +49,18 @@
 			"SELECT * FROM congregation
 			WHERE id = $cong_id");
 		return result_to_json($data);
+	}
+
+	function add_congregation($db, $name, $location_id, $start_date, $end_date)
+	{
+		$data = array(
+		             "name"       => $name,
+		             "location"   => $location_id,
+		             "start_date" => $start_date,
+		             "end_date"   => $end_date,
+		            );
+
+		return insert_row($db, "congregation", $data);
 	}
 
 	//Add a location

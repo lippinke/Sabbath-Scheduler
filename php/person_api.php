@@ -18,7 +18,7 @@
 		             "first"    => $first,
 		             "last"     => $last,
 		             "email"    => $email,
-		             // "password" => $password
+		             "password" => $password
 		            );
 
 		return insert_row($db, "person", $data);
@@ -31,6 +31,26 @@
 		$data = mysqli_query($db, "SELECT congregation FROM admin
 			WHERE person = $person_id");
 		return result_to_json($data);
+	}
+
+	function add_admin($db, $person_id, $congr_id)
+	{
+		$data = array(
+		             "person"       => $person_id,
+		             "congregation" => $congr_id
+		            );
+
+		return insert_row($db, "admin", $data);
+	}
+
+	function add_admin($db, $person_id, $congr_id)
+	{
+		$data = array(
+		             "person"       => $person_id,
+		             "congregation" => $congr_id
+		            );
+
+		return insert_row($db, "admin", $data);
 	}
 
 	//Validate user logins

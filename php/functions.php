@@ -18,8 +18,6 @@
 		          INTO $table ($data_keys)
 		          VALUES ($data_values)";
 
-		echo $query;
-
 		// may return result obj
 		if(mysqli_query($db, $query) == TRUE){
 			return TRUE;
