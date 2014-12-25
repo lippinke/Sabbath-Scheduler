@@ -1,4 +1,4 @@
-<?include 'views/header.php' ?>
+<?php include 'views/header.php' ?>
 			<a href="" class="btnlink"><div class="button userbtn"> 
 						View Sabbath
 						</div></a>
@@ -23,4 +23,4 @@
 			<a href="" class="btnlink"><div class="button adminbtn"> 
 						View Templates
 						</div></a>
-<? include 'footer.html' ?>
+<?php include 'views/footer.php' ?>
