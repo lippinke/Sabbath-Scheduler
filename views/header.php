@@ -9,6 +9,3 @@
 	<body>
 	    <div id="outer-wrap">
 			<h1>Sabbath Scheduler</h1>
-	</div>
-</body>
-</html>
